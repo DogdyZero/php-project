@@ -22,6 +22,10 @@ function createTemplate(tela,celular,usuario){
   </div>
   <div class="mdc-drawer__content">
     <nav class="mdc-list">
+    <a class="mdc-list-item ${tela=='usuarioConsulta'?ativo:''}" href="usuarioConsulta.php">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">person</i>
+        <span class="mdc-list-item__text">Usuário</span>
+      </a>
       <a class="mdc-list-item ${tela=='consulta'?ativo:''}" href="consulta.php">
         <i class="material-icons mdc-list-item__graphic" aria-hidden="true">find_in_page</i>
         <span class="mdc-list-item__text">Consulta</span>

@@ -17,20 +17,21 @@
     class LoginControle{
         public function executar(){
 
-            $usuario = new Usuario($_POST['login'],$_POST['senha']);
+            $usuario = new Usuario($_POST['login'],$_POST['senha'],null);
             $usuarioDao = new UsuarioDao($usuario);
-            // $usuarioDao->efetuarLogin();
-            if($usuarioDao->efetuarLogin()){
-                setcookie("login",$usuario->getNomeUsuario(),null,"/");
+
+            $resultado = $usuarioDao->efetuarLogin();
+            if(!empty($resultado)){
+                setcookie("login",$resultado->nome,null,"/");
                 setcookie("modal",'false',null,"/");
                 $livroDao = new LivroDao();
                 $estiloDao = new EstiloDao();
                 session_start();
                 // $_SESSION['livros'] = $livroDao->pesquisar(array(new FiltroHelper()));
+                $_SESSION['usuario'] = $resultado;
                 $_SESSION['estilos'] = $estiloDao->buscarTodos();
                 $_SESSION['grafico'] = $livroDao->exibirGrafico();
-               
-                header('Location:'. URL .'/consulta.php');
+                header('Location:'. URL .'/usuarioConsulta.php');
             } else {
                 setcookie("resultado","Usuário ou senha estão errados!",time()+5,"/");
                 header('Location:'. URL .'/index.php');

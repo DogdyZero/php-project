@@ -1,20 +1,21 @@
 <?php
 
     class Usuario{
-        private $nomeUsuario = 'Usuario';
+        private $nome;
         private $login;
         private $senha;
 
-        public function __construct($login,$senha){
+        public function __construct($login,$senha,$nome){
             $this->login = $login;
             $this->senha = $senha;
+            $this->nome = $nome;
         }
 
-        public function setNomeUsuario($nomeUsuario){
-            $this->nomeUsuario = $nomeUsuario;
+        public function setNome($nomeUsuario){
+            $this->nome = $nomeUsuario;
         }
-        public function getNomeUsuario(){
-            return $this->nomeUsuario;
+        public function getNome(){
+            return $this->nome;
         }
         public function setLogin($login){
             $this->login = $login;
