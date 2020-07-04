@@ -4,6 +4,7 @@
         private $nome;
         private $login;
         private $senha;
+        private $perfil;
 
         public function __construct($login,$senha,$nome){
             $this->login = $login;
@@ -28,6 +29,12 @@
         }
         public function getSenha(){
             return $this->senha;
+        }
+        public function setPerfil($perfil){
+            $this->perfil = $perfil;
+        }
+        public function getPerfil(){
+            return $this->perfil;
         }
     }
 ?>
