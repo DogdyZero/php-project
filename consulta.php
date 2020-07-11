@@ -1,6 +1,10 @@
+<?php require "modelo/estilo.php";
+    require "modelo/livro.php";
+    require_once "configuracao/enviroment.php";
+    session_start();
+    ?>
 <!DOCTYPE html>
 <html lang="pt">
-<?php require_once "configuracao/enviroment.php"?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,12 +23,6 @@
                 <p >
                     Consulta
                 </p>
-                <?php 
-                    session_start();
-                    // foreach($_SESSION['livros'] as $row):
-                    //     echo $row->titulo;
-                    // endforeach;
-                 ?>
             </div>
             <div id="pesquisa" class="row col-md-12 col-xs-12 center-xs start-md middle-md" >
                 <div id="selectMenu" class="w-100 center-xs mdc-select  mdc-select--outlined mdc-select--no-label "  data-mdc-auto-init="MDCSelect">
@@ -77,22 +75,22 @@
                             <tbody class="mdc-data-table__content">
                                 <?php foreach($_SESSION['livros'] as $row): ?>
                                 <tr class="mdc-data-table__row">
-                                    <td class="mdc-data-table__cell"><?php echo $row->id; ?></td>
-                                    <td class="mdc-data-table__cell"><?php echo $row->titulo; ?></td>
-                                    <td class="mdc-data-table__cell"><?php echo $row->autor; ?></td>
-                                    <td class="mdc-data-table__cell"><?php echo $row->editora; ?></td>
-                                    <td class="mdc-data-table__cell"><?php echo $row->paginas; ?></td>
+                                    <td class="mdc-data-table__cell"><?php echo $row->getId(); ?></td>
+                                    <td class="mdc-data-table__cell"><?php echo $row->getTitulo(); ?></td>
+                                    <td class="mdc-data-table__cell"><?php echo $row->getAutor(); ?></td>
+                                    <td class="mdc-data-table__cell"><?php echo $row->getEditora(); ?></td>
+                                    <td class="mdc-data-table__cell"><?php echo $row->getPaginas(); ?></td>
                                     <td class="mdc-data-table__cell">
                                         <?php 
                                         foreach($_SESSION['estilos'] as $estilo){
-                                            if($row->idestilo==$estilo->id){
-                                                echo $estilo->titulo;
+                                            if($row->getEstilo()==$estilo->getId()){
+                                                echo $estilo->getTitulo();
                                             }
                                         }
                                         ?>
                                     </td>
                                     <td class="mdc-data-table__cell">
-                                        <a href="<?php echo URL.'/controle/prepararAlteracaoControle.php?id='.$row->id; ?>">
+                                        <a href="<?php echo URL.'/controle/prepararAlteracaoControle.php?id='.$row->getId(); ?>">
                                             <span class="material-icons">edit</span>
                                         </a>
                                     </td>

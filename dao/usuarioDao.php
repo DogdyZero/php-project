@@ -1,6 +1,6 @@
 <?php 
 require_once 'connectionDB.php';
-include "usuario.php";
+// include "../modelo/usuario.php";
 
 class UsuarioDao{
     private $usuario;
@@ -20,7 +20,15 @@ class UsuarioDao{
         $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
 
         $stmt->execute();
-        return $stmt->fetchObject();
+        $resultado = $stmt->fetchObject();
+        if(!empty($resultado)){
+            $usuario = new Usuario($resultado->login,$resultado->senha,$resultado->nome);
+            $usuario->setId($resultado->id);
+            $usuario->setPerfil($resultado->idperfil);
+            $usuario->setReset($resultado->reset);
+            return $usuario;
+        }
+        return null;
     }
 
     public function inserir($usuario){
@@ -59,13 +67,13 @@ class UsuarioDao{
     private function validarSenha($usuario,$idUsuario){
         $usuarioSenha = $this->buscarUsuarioPorId($idUsuario);
         if(empty($usuario->getSenha())){
-            $usuario->setSenha($usuarioSenha->senha);
+            $usuario->setSenha($usuarioSenha->getSenha());
         } else if ($usuario->getSenha()=='reset'){
             $usuario->setSenha(md5('123456'));
             $this->reset=true;
         } 
         if (empty($usuario->getPerfil())){
-            $usuario->setPerfil($usuarioSenha->idperfil);
+            $usuario->setPerfil($usuarioSenha->getPerfil());
         }
         return $usuario;
     }
@@ -76,15 +84,29 @@ class UsuarioDao{
         $stmt->bindParam(':id', $idUsuario, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchObject();
+        $resultado = $stmt->fetchObject();
+        $usuario = new Usuario($resultado->login,$resultado->senha,$resultado->nome);
+        $usuario->setId($resultado->id);
+        $usuario->setPerfil($resultado->idperfil);
+        $usuario->setReset($resultado->reset);
+        return $usuario;
     }
 
     public function buscarTodos(){
+        $usuarios = array();
         $sql  = "SELECT * FROM usuario ";
         $stmt = ConnectionDB::prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        $resultado = $stmt->fetchAll();
+        foreach($resultado as $row){
+            $usuario = new Usuario($row->login,$row->senha,$row->nome);
+            $usuario->setId($row->id);
+            $usuario->setPerfil($row->idperfil);
+            $usuario->setReset($row->reset);
+            array_push($usuarios, $usuario);
+        }
+        return $usuarios;
     }
 
     public function buscarUsuarioPorPerfil(){

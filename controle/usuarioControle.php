@@ -1,6 +1,6 @@
 <?php 
-// error_reporting(-1); 
-// ini_set('display_errors', 'On');
+    error_reporting(-1); 
+    ini_set('display_errors', 'On');
     include "../modelo/usuario.php";
     include "../dao/usuarioDao.php";
 
@@ -19,9 +19,9 @@
         public function executar(){
             session_start();
             $reset = $_POST['opcao'];
-            if($_SESSION['usuario']->reset==true){
+            if($_SESSION['usuario']->getReset()==true){
                 if($_POST['primeiraSenha']==$_POST['repetirSenha']){
-                    $usuario = new Usuario($_SESSION['usuario']->login,md5($_POST['primeiraSenha']),$_SESSION['usuario']->nome);
+                    $usuario = new Usuario($_SESSION['usuario']->getLogin(),md5($_POST['primeiraSenha']),$_SESSION['usuario']->getNome());
                 } else {
                     // cookie com a mensagem de senhas diferentes
                     setcookie("resultado","As senhas informadas estão diferentes!",time()+5,"/");
@@ -53,7 +53,7 @@
             session_start();
 
             $_SESSION['edicao'] = true;
-            $_SESSION['usuario'] = null;
+            $_SESSION['usuario'] = new Usuario(null,null,null);
             header('Location:'. URL .'/usuarioConsulta.php');
 
         }

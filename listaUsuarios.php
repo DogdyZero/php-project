@@ -1,3 +1,7 @@
+<?php 
+error_reporting(-1); 
+ini_set('display_errors', 'On');
+?>
 <div class="center-md col-md-10 center-xs">
     <p >
         Consulta
@@ -27,12 +31,12 @@
             <tbody class="mdc-data-table__content">
                 <?php foreach($_SESSION['listaUsuarios'] as $row): ?>
                 <tr class="mdc-data-table__row">
-                    <td class="mdc-data-table__cell"><?php echo $row->id; ?></td>
-                    <td class="mdc-data-table__cell"><?php echo $row->login; ?></td>
-                    <td class="mdc-data-table__cell"><?php echo $row->nome; ?></td>
-                    <td class="mdc-data-table__cell"><?php echo $row->idperfil; ?></td>
+                    <td class="mdc-data-table__cell"><?php echo $row->getId(); ?></td>
+                    <td class="mdc-data-table__cell"><?php echo $row->getLogin(); ?></td>
+                    <td class="mdc-data-table__cell"><?php echo $row->getNome(); ?></td>
+                    <td class="mdc-data-table__cell"><?php echo $row->getPerfil(); ?></td>
                     <td class="mdc-data-table__cell">
-                        <a href="<?php echo URL.'/controle/loginControle.php?id='.$row->id; ?>">
+                        <a href="<?php echo URL.'/controle/loginControle.php?id='.$row->getId(); ?>">
                             <span class="material-icons">edit</span>
                         </a>
                     </td>

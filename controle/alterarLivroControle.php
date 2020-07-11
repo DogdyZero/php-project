@@ -1,7 +1,10 @@
 <?php
+error_reporting(-1); 
+ini_set('display_errors', 'On');
+
 include "../dao/livroDao.php";
-include "../modelo/livro.php";
-include '../helper/livroBuilder.php';
+// include "../modelo/livro.php";
+// include '../helper/livroBuilder.php';
 include '../helper/validateLivroForm.php';
 
 require_once "../configuracao/enviroment.php";
@@ -27,7 +30,7 @@ class AlterarLivroControle{
         if(empty($resultado)){
             $livroDao = new LivroDao();
             $livroDao->alterarLivro($livro,$_POST['id']);
-            // $_SESSION['livros']  = $livroDao->buscarTodosLivros();
+            $_SESSION['livros']  = $livroDao->buscarTodosLivros();
             $_SESSION['grafico'] = $livroDao->exibirGrafico();
             setcookie("modal",'sucesso',time()+5,"/");
             header('Location:'.URL.'/consulta.php');

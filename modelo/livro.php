@@ -1,6 +1,7 @@
 <?php
 
 class Livro{
+    private $id;
     private $titulo;
     private $descricao;
     private $autor;
@@ -16,7 +17,12 @@ class Livro{
         $this->editora = $editora;
         $this->paginas = $paginas;
     }
-
+    public function setId($id){
+        $this->id = $id;
+    }
+    public function getId(){
+        return $this->id;
+    }
     public function getTitulo(){
         return $this->titulo;
     }

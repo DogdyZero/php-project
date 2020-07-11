@@ -1,7 +1,9 @@
+<?php require "modelo/estilo.php";
+    require "modelo/livro.php";
+    session_start();
+$estilos = $_SESSION['estilos'];?>
 <!DOCTYPE html>
 <html lang="pt">
-<?php session_start();
-$estilos = $_SESSION['estilos'];?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,11 +26,11 @@ $estilos = $_SESSION['estilos'];?>
             </div>
             <form action="controle/alterarLivroControle.php" method="post">
                 <div>
-                    <input type="hidden" name="id" value="<?php echo $_SESSION['livro']->id; ?>">
+                    <input type="hidden" name="id" value="<?php echo $_SESSION['livro']->getId(); ?>">
                 </div>
                 <div class="row col-md-10 center-md center-xs">
                     <div class="col-xs-10  mdc-text-field mdc-text-field--outlined mdc-elevation--z3" data-mdc-auto-init="MDCTextField">
-                        <input class="mdc-text-field__input" value="<?php echo $_SESSION['livro']->titulo; ?>" name="titulo">
+                        <input class="mdc-text-field__input" value="<?php echo $_SESSION['livro']->getTitulo(); ?>" name="titulo">
                         <div class="mdc-notched-outline">
                             <div class="mdc-notched-outline__leading "></div>
                             <div class="mdc-notched-outline__notch">
@@ -40,7 +42,7 @@ $estilos = $_SESSION['estilos'];?>
                 </div>
                 <div class="row col-md-10 center-xs">
                     <div class="col-xs-10 mdc-text-field text-field mdc-text-field--textarea mdc-elevation--z3 m-10px" data-mdc-auto-init="MDCTextField">
-                         <textarea name="descricao" class="mdc-text-field__input"><?php echo $_SESSION['livro']->descricao; ?></textarea>
+                         <textarea name="descricao" class="mdc-text-field__input"><?php echo $_SESSION['livro']->getDescricao(); ?></textarea>
                         <div class="mdc-notched-outline">
                             <div class="mdc-notched-outline__leading"></div>
                             <div class="mdc-notched-outline__notch">
@@ -52,7 +54,7 @@ $estilos = $_SESSION['estilos'];?>
                 </div>
                 <div class="row col-md-10 center-xs">
                     <div class="col-xs-10 mdc-text-field mdc-text-field--outlined mdc-elevation--z3 m-10px" data-mdc-auto-init="MDCTextField">
-                        <input class="mdc-text-field__input" name="autor" value="<?php echo $_SESSION['livro']->autor; ?>">
+                        <input class="mdc-text-field__input" name="autor" value="<?php echo $_SESSION['livro']->getAutor(); ?>">
                         <div class="mdc-notched-outline">
                             <div class="mdc-notched-outline__leading"></div>
                             <div class="mdc-notched-outline__notch">
@@ -64,7 +66,7 @@ $estilos = $_SESSION['estilos'];?>
                 </div>
                 <div class="row col-md-10 center-xs">
                     <div class="col-xs-10 mdc-text-field mdc-text-field--outlined mdc-elevation--z3 m-10px" data-mdc-auto-init="MDCTextField">
-                        <input class="mdc-text-field__input" name="editora" value="<?php echo $_SESSION['livro']->editora; ?>">
+                        <input class="mdc-text-field__input" name="editora" value="<?php echo $_SESSION['livro']->getEditora(); ?>">
                         <div class="mdc-notched-outline">
                             <div class="mdc-notched-outline__leading"></div>
                             <div class="mdc-notched-outline__notch">
@@ -91,11 +93,11 @@ $estilos = $_SESSION['estilos'];?>
                         <div class="mdc-select__menu mdc-menu mdc-menu-surface">
                             <ul class="mdc-list combo-estilo">
                                 <?php foreach($estilos as $row): ?>
-                                    <?php if($row->id==$_SESSION['livro']->idestilo):?>
-                                        <li class="mdc-list-item mdc-list-item--selected" data-value="<?php  echo $_SESSION['livro']->idestilo;?>" aria-selected="true"><?php echo $row->titulo; ?></li>
+                                    <?php if($row->getId()==$_SESSION['livro']->getEstilo()):?>
+                                        <li class="mdc-list-item mdc-list-item--selected" data-value="<?php  echo $_SESSION['livro']->getEstilo();?>" aria-selected="true"><?php echo $row->getTitulo(); ?></li>
                                     <?php else :?>
-                                    <li class="mdc-list-item" data-value="<?php echo $row->id;?>">
-                                        <?php echo $row->titulo; ?>
+                                    <li class="mdc-list-item" data-value="<?php echo $row->getId();?>">
+                                        <?php echo $row->getTitulo(); ?>
                                     </li>
                                     <?php endif;?>
 
@@ -105,7 +107,7 @@ $estilos = $_SESSION['estilos'];?>
                     </div>
                     <input type="hidden" id="opcao" name="opcao" value="">
                     <div class="col-xs-10 col-md-5 mdc-text-field mdc-text-field--outlined mdc-elevation--z3 m-10px" data-mdc-auto-init="MDCTextField">
-                        <input class="mdc-text-field__input" name="paginas" value="<?php echo $_SESSION['livro']->paginas; ?>">
+                        <input class="mdc-text-field__input" name="paginas" value="<?php echo $_SESSION['livro']->getPaginas(); ?>">
                         <div class="mdc-notched-outline">
                             <div class="mdc-notched-outline__leading"></div>
                             <div class="mdc-notched-outline__notch">

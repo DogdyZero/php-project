@@ -1,13 +1,13 @@
 <?php
-// error_reporting(-1); 
-// ini_set('display_errors', 'On');
-    include "../dao/livroDao.php";
-    include "../modelo/usuario.php";
-    include "../dao/usuarioDao.php";
-    include "../dao/estiloDao.php";
-    include "../dao/perfilDao.php";
-    include "../modelo/livro.php";
-    include '../helper/filtroHelper.php';
+error_reporting(-1); 
+ini_set('display_errors', 'On');
+    require "../dao/livroDao.php";
+    require "../modelo/usuario.php";
+    require "../dao/usuarioDao.php";
+    require "../dao/estiloDao.php";
+    require "../dao/perfilDao.php";
+    // require "../modelo/livro.php";
+    require '../helper/filtroHelper.php';
 
     require_once "../configuracao/enviroment.php";
     
@@ -26,7 +26,7 @@
 
             $resultado = $usuarioDao->efetuarLogin();
             if(!empty($resultado)){
-                setcookie("login",$resultado->nome,null,"/");
+                setcookie("login",$resultado->getNome(),null,"/");
                 setcookie("modal",'false',null,"/");
                 $livroDao = new LivroDao();
                 $estiloDao = new EstiloDao();
@@ -36,7 +36,7 @@
                 // $_SESSION['livros'] = $livroDao->pesquisar(array(new FiltroHelper()));
 
                 $_SESSION['usuario'] = $resultado;
-                if($resultado->idperfil == 1){
+                if($resultado->getPerfil() == 1){
                     $_SESSION['admin'] = true;
                     $_SESSION['listaUsuarios'] = $usuarioDao->buscarTodos();
                     $_SESSION['perfis'] = $perfilDao->buscarTodos();

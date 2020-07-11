@@ -1,4 +1,6 @@
 <?php
+require '../modelo/livro.php';
+
     class LivroBuilder{
         private $titulo;
         private $descricao;

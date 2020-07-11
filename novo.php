@@ -1,7 +1,9 @@
+<?php 
+    include 'modelo/estilo.php';
+    session_start();
+    $estilos = $_SESSION['estilos'];?>
 <!DOCTYPE html>
 <html lang="pt">
-<?php session_start();
-$estilos = $_SESSION['estilos'];?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,8 +88,8 @@ $estilos = $_SESSION['estilos'];?>
                         <div class="mdc-select__menu mdc-menu mdc-menu-surface" >
                             <ul class="mdc-list combo-estilo">
                                 <?php foreach($estilos as $row): ?>
-                                <li class="mdc-list-item" data-value="<?php echo $row->id;?>">
-                                    <?php echo $row->titulo; ?>
+                                <li class="mdc-list-item" data-value="<?php echo $row->getId();?>">
+                                    <?php echo $row->getTitulo(); ?>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>

@@ -6,12 +6,12 @@
 
 <form action="controle/usuarioControle.php" method="post">
     <div>
-        <input type="hidden" name="id" value="<?php echo $_SESSION['usuario']->id; ?>">
+        <input type="hidden" name="id" value="<?php echo $_SESSION['usuario']->getId(); ?>">
     </div>
-    <?php if($_SESSION['usuario']->reset==false): ?>
+    <?php if($_SESSION['usuario']->getReset()==false): ?>
     <div class="row col-md-10 center-md center-xs">
         <div class="col-xs-10  mdc-text-field mdc-text-field--outlined mdc-elevation--z3" data-mdc-auto-init="MDCTextField">
-            <input class="mdc-text-field__input" value="<?php echo $_SESSION['usuario']->nome; ?>" name="nome">
+            <input class="mdc-text-field__input" value="<?php echo $_SESSION['usuario']->getNome(); ?>" name="nome">
             <div class="mdc-notched-outline">
                 <div class="mdc-notched-outline__leading "></div>
                 <div class="mdc-notched-outline__notch">
@@ -23,7 +23,7 @@
     </div>
     <div class="row col-md-10 center-xs">
         <div class="col-xs-10 mdc-text-field mdc-text-field--outlined mdc-elevation--z3 m-10px" data-mdc-auto-init="MDCTextField">
-            <input class="mdc-text-field__input" name="login" value="<?php echo $_SESSION['usuario']->login; ?>">
+            <input class="mdc-text-field__input" name="login" value="<?php echo $_SESSION['usuario']->getLogin(); ?>">
             <div class="mdc-notched-outline">
                 <div class="mdc-notched-outline__leading"></div>
                 <div class="mdc-notched-outline__notch">
@@ -80,11 +80,11 @@
             <div class="mdc-select__menu mdc-menu mdc-menu-surface" >
                 <ul class="mdc-list combo-estilo">
                     <?php foreach($_SESSION['perfis'] as $row): ?>
-                        <?php if($row->id==$_SESSION['usuario']->idperfil):?>
-                            <li class="mdc-list-item mdc-list-item--selected" data-value="<?php  echo $_SESSION['usuario']->idperfil;?>" aria-selected="true"><?php echo $row->titulo; ?></li>
+                        <?php if($row->getId()==$_SESSION['usuario']->getPerfil()):?>
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="<?php  echo $_SESSION['usuario']->getPerfil();?>" aria-selected="true"><?php echo $row->getTitulo(); ?></li>
                         <?php else :?>
-                        <li class="mdc-list-item" data-value="<?php echo $row->id;?>">
-                            <?php echo $row->titulo; ?>
+                        <li class="mdc-list-item" data-value="<?php echo $row->getId();?>">
+                            <?php echo $row->getTitulo(); ?>
                         </li>
                         <?php endif;?>
 
@@ -97,7 +97,7 @@
     <?php endif; ?>
 
     <?php endif; ?>
-    <?php if($_SESSION['usuario']->reset==true): ?>
+    <?php if($_SESSION['usuario']->getReset()==true): ?>
     <div class="row col-md-10 center-xs ">
         <div class="col-xs-10 col-md-5 mdc-text-field mdc-text-field--outlined mdc-elevation--z3 m-10px" data-mdc-auto-init="MDCTextField">
             <input type="password" class="mdc-text-field__input" name="primeiraSenha">
@@ -127,14 +127,14 @@
     </div>
     <?php endif; ?>
     <div class="row col-md-10 center-xs ">
-        <?php if($_SESSION['usuario']!=null): ?>
+        <?php if($_SESSION['usuario']->getId()!=null): ?>
             <button type="submit" name="form" value="alterar" class="mdc-button mdc-button--raised  mdc-elevation--z5 m-10px">
                 <i class="material-icons mdc-button__icon" aria-hidden="true">done</i> 
                 <span class="mdc-button__ripple"></span>Enviar
             </button>
         <?php endif; ?>
         
-        <?php if($_SESSION['usuario']==null): ?>
+        <?php if($_SESSION['usuario']->getId()==null): ?>
             <button type="submit" name="form" value="novo" class="mdc-button mdc-button--raised  mdc-elevation--z5 m-10px">
                 <i class="material-icons mdc-button__icon" aria-hidden="true">done</i> 
                 <span class="mdc-button__ripple"></span>Enviar

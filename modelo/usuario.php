@@ -1,15 +1,24 @@
 <?php
 
     class Usuario{
+        private $id;
         private $nome;
         private $login;
         private $senha;
         private $perfil;
+        private $reset;
 
         public function __construct($login,$senha,$nome){
             $this->login = $login;
             $this->senha = $senha;
             $this->nome = $nome;
+        }
+
+        public function setId($id){
+            $this->id = $id;
+        }
+        public function getId(){
+            return $this->id;
         }
 
         public function setNome($nomeUsuario){
@@ -35,6 +44,13 @@
         }
         public function getPerfil(){
             return $this->perfil;
+        }
+
+        public function setReset($reset){
+            $this->reset = $reset;
+        }
+        public function getReset(){
+            return $this->reset;
         }
     }
 ?>

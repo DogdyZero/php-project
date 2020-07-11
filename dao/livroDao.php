@@ -1,6 +1,7 @@
 <?php
 require_once 'connectionDB.php';
-include 'livro.php';
+include '../helper/livroBuilder.php';
+// require '../modelo/livro.php';
 include 'consulta/livroConsultaDao.php';
 
 class LivroDao{
@@ -43,8 +44,8 @@ class LivroDao{
         $sql  = "SELECT * FROM livro";
         $stmt = ConnectionDB::prepare($sql);
         $stmt->execute();
-
-        return $stmt->fetchAll();
+        $resultado = $stmt->fetchAll();
+        return $this->preencherListaLivro($resultado);
     }
 
     public function buscarLivroPorId($idLivro){
@@ -53,7 +54,8 @@ class LivroDao{
         $stmt->bindParam(':id', $idLivro, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchObject();
+        $resultado = $stmt->fetchObject();
+        return $this->preencherLivro($resultado);
     }
     public function pesquisar($listaFiltros){
 
@@ -78,9 +80,29 @@ class LivroDao{
             }
         }
         $stmt->execute();
-        return $stmt->fetchAll();
+        $resultado = $stmt->fetchAll();
+        return $this->preencherListaLivro($resultado);
 
-
+    }
+    private function preencherListaLivro($resultado){
+        $livros = array();
+        foreach($resultado as $row){
+            $livro = $this->preencherLivro($row);
+            array_push($livros,$livro);
+        }
+        return $livros;
+    }
+    private function preencherLivro($row){
+        $livroBuilder = new LivroBuilder();
+        $livroBuilder->setTitulo($row->titulo);
+        $livroBuilder->setDescricao($row->descricao);
+        $livroBuilder->setEstilo($row->idestilo);
+        $livroBuilder->setAutor($row->autor);
+        $livroBuilder->setEditora($row->editora);
+        $livroBuilder->setPaginas($row->paginas);
+        $livro = $livroBuilder->build();
+        $livro->setId($row->id);
+        return $livro;
     }
     public function exibirGrafico(){
         $sql = "SELECT e.titulo as titulo, count(l.id) as contagem 

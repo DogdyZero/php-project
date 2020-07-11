@@ -1,3 +1,6 @@
+<?php require 'modelo/usuario.php';
+        require 'modelo/perfil.php';
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <?php require_once "configuracao/enviroment.php"?>
@@ -20,7 +23,7 @@
         <div class="mdc-top-app-bar--fixed-adjust col-md-12 "  >
         <?php 
         if($_SESSION['admin'] && $_SESSION['edicao']==false&&
-        $_SESSION['usuario']->reset==false ):
+        $_SESSION['usuario']->getReset()==false ):
             include 'listaUsuarios.php';
         else :
             include 'usuarioEdicao.php' ;

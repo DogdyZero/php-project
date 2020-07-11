@@ -9,7 +9,8 @@ if($_POST['tipo']=='usuario'){
 	$controle->gerarRelatorioUsuario();
 } else if($_POST['tipo']=='livro'){
 	$controle->gerarRelatorioLivro();
-	
+} else{
+	header('Location:'. URL .'/relatorio.php');
 }
 class RelatorioControle{
 

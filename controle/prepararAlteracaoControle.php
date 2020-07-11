@@ -2,7 +2,7 @@
 error_reporting(-1); 
 ini_set('display_errors', 'On');
 include "../dao/livroDao.php";
-include "../modelo/livro.php";
+// include "../modelo/livro.php";
 include "../dao/estiloDao.php";
 require_once "../configuracao/enviroment.php";
 
